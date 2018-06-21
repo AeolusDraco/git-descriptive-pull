@@ -16,7 +16,9 @@ for i in $(find . -name ".git" | cut -c 3-); do
     cd ..;
 
     # finally pull
-    git pull;
+    git fetch;
+    git cherry -v $(git rev-parse --abbrev-ref HEAD) $(git rev-parse --abbrev-ref --symbolic-full-name @{u});
+    git merge;
 
     # lets get back to the CUR_DIR
     cd $CUR_DIR
