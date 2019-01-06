@@ -22,7 +22,16 @@ for i in $(find . -name ".git" | cut -c 3-); do
     git fetch;
     # this shows a summary of the changes between local and origin, but we can only do this before our local copy is updated
     git cherry -v $(git rev-parse --abbrev-ref HEAD) $(git rev-parse --abbrev-ref --symbolic-full-name @{u});
-    git merge;
+    # recognize pull.rebase option
+    if PULL_REBASE=$(git config --get pull.rebase); then
+        if PULL_REBASE="true"; then
+            git rebase;
+        else
+            git merge;
+        fi
+    else
+        git merge;
+    fi
 
     # lets get back to the CUR_DIR
     cd $CUR_DIR
