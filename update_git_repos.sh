@@ -9,7 +9,7 @@ echo "Pulling in latest changes for all repositories..."
 echo ""
 
 # Find all git repositories and update it to the master latest revision
-for i in $(find . -name ".git" | cut -c 3-); do
+for i in $(find . -name ".git" -type d | cut -c 3-); do
     echo "";
     # The sed removes the trailing "/.git"
     echo $i | sed 's/.\{5\}$//';
